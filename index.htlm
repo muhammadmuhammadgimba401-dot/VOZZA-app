@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOZZA — Social Commerce</title>
+
+<style>
+:root{
+  --purple:#6338e8;
+  --purple2:#7c4dff;
+  --light:#f6f5ff;
+  --bg:#f7f8fc;
+  --white:#ffffff;
+  --text:#171a2b;
+  --muted:#70758a;
+  --border:#e5e6ee;
+  --green:#16a05d;
+  --red:#e5484d;
+  --yellow:#f2b01e;
+  --shadow:0 8px 28px rgba(32,25,70,.08);
+  --radius:18px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  max-width:1200px;
+  margin:auto;
+  min-height:100vh;
+}
+
+/* HEADER */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(247,248,252,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:12px 18px;
+}
+
+.header-top{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo{
+  color:var(--purple);
+  font-size:31px;
+  font-weight:900;
+  letter-spacing:-2px;
+}
+
+.search{
+  flex:1;
+  display:flex;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.search input{
+  width:100%;
+  border:0;
+  outline:none;
+  padding:13px;
+}
+
+.search button{
+  border:0;
+  background:var(--purple);
+  color:white;
+  padding:0 18px;
+  font-weight:bold;
+}
+
+.nav{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-top:12px;
+}
+
+.nav button{
+  white-space:nowrap;
+  border:0;
+  background:#ece8ff;
+  color:#4b32b4;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:bold;
+}
+
+.nav button.active{
+  background:var(--purple);
+  color:white;
+}
+
+/* MAIN */
+
+main{
+  padding:20px;
+}
+
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+.card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#6338e8,#8c62ff);
+  color:white;
+  padding:35px;
+  border-radius:24px;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  font-size:38px;
+  margin:10px 0;
+}
+
+.hero p{
+  max-width:700px;
+  line-height:1.6;
+  opacity:.93;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:16px;
+}
+
+.col-12{grid-column:span 12}
+.col-8{grid-column:span 8}
+.col-6{grid-column:span 6}
+.col-4{grid-column:span 4}
+.col-3{grid-column:span 3}
+
+h1{
+  font-size:32px;
+}
+
+h2{
+  margin-top:0;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.small{
+  font-size:13px;
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.between{
+  justify-content:space-between;
+}
+
+/* BUTTONS */
+
+.btn{
+  border:0;
+  border-radius:12px;
+  padding:11px 16px;
+  background:#eeeef4;
+  color:var(--text);
+  font-weight:bold;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+.btn-primary{
+  background:var(--purple);
+  color:white;
+}
+
+.btn-success{
+  background:#e5f8ef;
+  color:#08783f;
+}
+
+.btn-danger{
+  background:#ffe8e9;
+  color:#b4232a;
+}
+
+.btn-white{
+  background:white;
+  color:var(--purple);
+}
+
+/* FORMS */
+
+input,
+textarea,
+select{
+  width:100%;
+  padding:13px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:white;
+  color:var(--text);
+  outline:none;
+}
+
+textarea{
+  resize:vertical;
+}
+
+label{
+  display:block;
+  margin:12px 0 7px;
+  font-weight:bold;
+}
+
+/* STATS */
+
+.stat{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+}
+
+.stat-number{
+  font-size:27px;
+  font-weight:900;
+  margin-top:7px;
+}
+
+/* PILL */
+
+.pill{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#eeeaff;
+  color:#4d32b7;
+  font-size:12px;
+  font-weight:bold;
+}
+
+/* FEED */
+
+.feed{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.feed-post{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+.user{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.avatar{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#e9e3ff;
+  color:#4c30b5;
+  font-weight:900;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.actions button{
+  border:0;
+  background:#f0f1f5;
+  padding:9px 12px;
+  border-radius:10px;
+}
+
+/* REELS */
+
+.reel{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.reel-video{
+  aspect-ratio:9/14;
+  background:linear-gradient(135deg,#191526,#6338e8);
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:25px;
+  font-weight:bold;
+}
+
+.reel-body{
+  padding:15px;
+}
+
+/* PRODUCT */
+
+.product{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.product-image{
+  height:190px;
+  background:linear-gradient(135deg,#eeeaff,#f8f8ff);
+  display:grid;
+  place-items:center;
+  color:#5937c6;
+  font-size:45px;
+}
+
+.product-body{
+  padding:16px;
+}
+
+.price{
+  color:var(--purple);
+  font-size:21px;
+  font-weight:900;
+}
+
+/* UPLOAD */
+
+.upload{
+  border:2px dashed #cfc7f7;
+  background:#faf9ff;
+  border-radius:16px;
+  padding:30px;
+  text-align:center;
+}
+
+.upload input{
+  margin-top:15px;
+}
+
+/* WALLET */
+
+.balance{
+  background:linear-gradient(135deg,#6338e8,#7c4dff);
+  color:white;
+  border-radius:20px;
+  padding:25px;
+}
+
+.balance-number{
+  font-size:38px;
+  font-weight:900;
+}
+
+/* TABLE */
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,
+td{
+  padding:13px;
+  text-align:left;
+  border-bottom:1px solid var(--border);
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(10,12,25,.6);
+  display:none;
+  place-items:center;
+  padding:18px;
+  z-index:500;
+}
+
+.modal.show{
+  display:grid;
+}
+
+.modal-card{
+  width:100%;
+  max-width:550px;
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  max-height:90vh;
+  overflow:auto;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  background:#171a2b;
+  color:white;
+  padding:14px 18px;
+  border-radius:12px;
+  display:none;
+  z-index:1000;
+  max-width:340px;
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+  .header-top{
+    flex-wrap:wrap;
+  }
+
+  .search{
+    order:3;
+    flex-basis:100%;
+  }
+
+  .col-8,
+  .col-6,
+  .col-4,
+  .col-3{
+    grid-column:span 12;
+  }
+
+  main{
+    padding:12px;
+  }
+
+  .hero{
+    padding:24px;
+  }
+
+  .hero h1{
+    font-size:30px;
+  }
+
+  .logo{
+    font-size:27px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+
+  <div class="header-top">
+
+    <div class="logo">VOZZA.</div>
+
+    <div class="search">
+      <input
+        id="searchInput"
+        placeholder="Search products, reels, creators..."
+      >
+      <button onclick="searchVOZZA()">Search</button>
+    </div>
+
+    <button class="btn btn-primary" onclick="openModal('loginModal')">
+      Sign in
+    </button>
+
+  </div>
+
+  <nav class="nav">
+
+    <button class="active" onclick="showScreen('home',this)">
+      🏠 Home
+    </button>
+
+    <button onclick="showScreen('social',this)">
+      💬 Social
+    </button>
+
+    <button onclick="showScreen('reels',this)">
+      🎬 Reels
+    </button>
+
+    <button onclick="showScreen('voice',this)">
+      🎙️ Voice
+    </button>
+
+    <button onclick="showScreen('shop',this)">
+      🛍️ Shop
+    </button>
+
+    <button onclick="showScreen('create',this)">
+      ➕ Create
+    </button>
+
+    <button onclick="showScreen('seller',this)">
+      🏪 Seller
+    </button>
+
+    <button onclick="showScreen('wallet',this)">
+      💰 Wallet
+    </button>
+
+    <button onclick="showScreen('profile',this)">
+      👤 Profile
+    </button>
+
+    <button onclick="showScreen('settings',this)">
+      ⚙️ Settings
+    </button>
+
+    <button onclick="showScreen('admin',this)">
+      🛡️ Admin
+    </button>
+
+  </nav>
+
+</header>
+
+<main>
+
+<!-- HOME -->
+
+<section id="home" class="screen active">
+
+  <div class="hero">
+
+    <span class="pill">VOZZA SOCIAL COMMERCE</span>
+
+    <h1>Discover. Create. Shop. Earn.</h1>
+
+    <p>
+      VOZZA combines social content, Reels, voice creators,
+      product discovery, sellers and shopping in one platform.
+    </p>
+
+    <div class="row">
+
+      <button
+        class="btn btn-white"
+        onclick="showScreen('reels')"
+      >
+        🎬 Watch Reels
+      </button>
+
+      <button
+        class="btn btn-white"
+        onclick="showScreen('shop')"
+      >
+        🛍️ Shop
+      </button>
+
+      <button
+        class="btn btn-white"
+        onclick="showScreen('create')"
+      >
+        ➕ Create
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="col-4 stat">
+      🎬
+      <div class="muted">Content</div>
+      <div class="stat-number">Reels</div>
+      <div class="small muted">
+        Comedy, news, education and creators.
+      </div>
+    </div>
+
+    <div class="col-4 stat">
+      🎙️
+      <div class="muted">Audio</div>
+      <div class="stat-number">Voice</div>
+      <div class="small muted">
+        Voice creators and voice effects.
+      </div>
+    </div>
+
+    <div class="col-4 stat">
+      🛍️
+      <div class="muted">Commerce</div>
+      <div class="stat-number">Shop</div>
+      <div class="small muted">
+        Discover products from sellers.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Why VOZZA?</h2>
+
+    <div class="grid">
+
+      <div class="col-4">
+        <h3>🎥 Social discovery</h3>
+        <p class="muted">
+          People can discover content before deciding what to buy.
+        </p>
+      </div>
+
+      <div class="col-4">
+        <h3>🛍️ Social shopping</h3>
+        <p class="muted">
+          Sellers can show products while creators promote them.
+        </p>
+      </div>
+
+      <div class="col-4">
+        <h3>💰 Creator economy</h3>
+        <p class="muted">
+          Creators can receive eligible rewards and gifts.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SOCIAL -->
+
+<section id="social" class="screen">
+
+  <div class="row between">
+
+    <h1>Social Feed</h1>
+
+    <button
+      class="btn btn-primary"
+      onclick="showScreen('create')"
+    >
+      + Create
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Write a post</h2>
+
+    <textarea
+      id="postText"
+      rows="4"
+      placeholder="Share something..."
+    ></textarea>
+
+    <div class="actions">
+
+      <button onclick="publishPost()">
+        📝 Publish
+      </button>
+
+      <button onclick="showScreen('create')">
+        🖼️ Photo
+      </button>
+
+      <button onclick="showScreen('create')">
+        🎬 Reel
+      </button>
+
+      <button onclick="showScreen('create')">
+        🎙️ Voice
+      </button>
+
+      <button onclick="showScreen('create')">
+        📖 Story
+      </button>
+
+    </div>
+
+  </div>
+
+  <div id="feed" class="feed"></div>
+
+</section>
+
+
+<!-- REELS -->
+
+<section id="reels" class="screen">
+
+  <div class="row between">
+
+    <h1>VOZZA Reels</h1>
+
+    <button
+      class="btn btn-primary"
+      onclick="showScreen('create')"
+    >
+      🎬 Upload Reel
+    </button>
+
+  </div>
+
+  <div class="grid" id="reelsGrid"></div>
+
+</section>
+
+
+<!-- VOICE -->
+
+<section id="voice" class="screen">
+
+  <div class="row between">
+
+    <h1>VOZZA Voice</h1>
+
+    <button
+      class="btn btn-primary"
+      onclick="showScreen('create')"
+    >
+      🎙️ Upload Voice
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Voice Effects</h2>
+
+    <div class="grid" id="voiceEffects"></div>
+
+  </div>
+
+  <div id="voiceFeed"></div>
+
+</section>
+
+
+<!-- SHOP -->
+
+<section id="shop" class="screen">
+
+  <div class="row between">
+
+    <h1>Shop</h1>
+
+    <button
+      class="btn btn-primary"
+      onclick="showScreen('seller')"
+    >
+      🏪 Sell Product
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Find products</h2>
+
+    <div class="grid">
+
+      <div class="col-8">
+        <input placeholder="Search product...">
+      </div>
+
+      <div class="col-4">
+        <select>
+          <option>All countries</option>
+          <option>🇳🇬 Nigeria</option>
+          <option>🇬🇭 Ghana</option>
+          <option>🇰🇪 Kenya</option>
+          <option>🇿🇦 South Africa</option>
+          <option>🇺🇬 Uganda</option>
+        </select>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="grid" id="products"></div>
+
+</section>
+
+
+<!-- CREATE -->
+
+<section id="create" class="screen">
+
+  <h1>Create</h1>
+
+  <div class="grid">
+
+    <!-- REEL -->
+
+    <div class="col-6 card">
+
+      <h2>🎬 Upload Reel</h2>
+
+      <div class="upload">
+
+        <p>Select your video</p>
+
+        <input
+          type="file"
+          accept="video/*"
+        >
+
+      </div>
+
+      <label>Caption</label>
+
+      <textarea
+        placeholder="Describe your Reel..."
+      ></textarea>
+
+      <label>Country</label>
+
+      <select>
+
+        <option>🇳🇬 Nigeria</option>
+        <option>🇬🇭 Ghana</option>
+        <option>🇰🇪 Kenya</option>
+        <option>🇿🇦 South Africa</option>
+        <option>🌍 Other</option>
+
+      </select>
+
+      <button
+        class="btn btn-primary"
+        style="margin-top:12px"
+        onclick="demo('Reel upload interface ready')"
+      >
+        Upload Reel
+      </button>
+
+    </div>
+
+
+    <!-- VOICE -->
+
+    <div class="col-6 card">
+
+      <h2>🎙️ Upload Voice</h2>
+
+      <div class="upload">
+
+        <p>Select audio</p>
+
+        <input
+          type="file"
+          accept="audio/*"
+        >
+
+      </div>
+
+      <label>Voice effect</label>
+
+      <select id="effectSelect"></select>
+
+      <label>Caption</label>
+
+      <textarea
+        placeholder="Describe your voice..."
+      ></textarea>
+
+      <button
+        class="btn btn-primary"
+        style="margin-top:12px"
+        onclick="demo('Voice upload interface ready')"
+      >
+        Upload Voice
+      </button>
+
+    </div>
+
+
+    <!-- PHOTO -->
+
+    <div class="col-6 card">
+
+      <h2>🖼️ Photo Post</h2>
+
+      <div class="upload">
+
+        <p>Select pictures</p>
+
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+        >
+
+      </div>
+
+      <label>Caption</label>
+
+      <textarea
+        placeholder="Write your caption..."
+      ></textarea>
+
+      <button
+        class="btn btn-primary"
+        style="margin-top:12px"
+        onclick="demo('Photo post interface ready')"
+      >
+        Publish Photo
+      </button>
+
+    </div>
+
+
+    <!-- STORY -->
+
+    <div class="col-6 card">
+
+      <h2>📖 Story</h2>
+
+      <div class="upload">
+
+        <p>Select story image/video</p>
+
+        <input
+          type="file"
+          accept="image/*,video/*"
+        >
+
+      </div>
+
+      <label>Visibility</label>
+
+      <select>
+
+        <option>Public</option>
+        <option>Followers</option>
+        <option>Close friends</option>
+
+      </select>
+
+      <button
+        class="btn btn-primary"
+        style="margin-top:12px"
+        onclick="demo('Story interface ready')"
+      >
+        Publish Story
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SELLER -->
+
+<section id="seller" class="screen">
+
+  <div class="row between">
+
+    <h1>Seller Dashboard</h1>
+
+    <button
+      class="btn btn-primary"
+      onclick="showScreen('create')"
+    >
+      + Add Product
+    </button>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="col-4 stat">
+      Products
+      <div class="stat-number">12</div>
+    </div>
+
+    <div class="col-4 stat">
+      Orders
+      <div class="stat-number">28</div>
+    </div>
+
+    <div class="col-4 stat">
+      Sales
+      <div class="stat-number">₦486,000</div>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>List Product</h2>
+
+    <div class="grid">
+
+      <div class="col-6">
+
+        <label>Product name</label>
+
+        <input
+          placeholder="Example: Smartphone"
+        >
+
+      </div>
+
+      <div class="col-6">
+
+        <label>Price</label>
+
+        <input
+          type="number"
+          placeholder="150000"
+        >
+
+      </div>
+
+      <div class="col-6">
+
+        <label>Product pictures — up to 5</label>
+
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+        >
+
+      </div>
+
+      <div class="col-6">
+
+        <label>Category</label>
+
+        <select>
+
+          <option>Electronics</option>
+          <option>Fashion</option>
+          <option>Beauty</option>
+          <option>Home</option>
+          <option>Food</option>
+          <option>Other</option>
+
+        </select>
+
+      </div>
+
+      <div class="col-12">
+
+        <label>Description</label>
+
+        <textarea
+          rows="5"
+          placeholder="Describe the product, condition, size, color, warranty and delivery..."
+        ></textarea>
+
+      </div>
+
+    </div>
+
+    <button
+      class="btn btn-primary"
+      onclick="demo('Product listing interface ready')"
+    >
+      Publish Product
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Seller Orders</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Order</th>
+            <th>Product</th>
+            <th>Buyer</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>#VOZ1001</td>
+            <td>Smartphone</td>
+            <td>Amina</td>
+            <td>₦150,000</td>
+            <td><span class="pill">Processing</span></td>
+          </tr>
+
+          <tr>
+            <td>#VOZ1002</td>
+            <td>Sneakers</td>
+            <td>Usman</td>
+            <td>₦35,000</td>
+            <td><span class="pill">Shipped</span></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WALLET -->
+
+<section id="wallet" class="screen">
+
+  <h1>Wallet & Creator Earnings</h1>
+
+  <div class="grid">
+
+    <div class="col-4">
+
+      <div class="balance">
+
+        <div>Available Balance</div>
+
+        <div class="balance-number">
+          ₦0
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-4 stat">
+
+      Creator Rewards
+
+      <div class="stat-number">
+        ₦0
+      </div>
+
+    </div>
+
+    <div class="col-4 stat">
+
+      Gifts Received
+
+      <div class="stat-number">
+        0
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>Creator Gifts</h2>
+
+    <div class="actions">
+
+      <button onclick="demo('₦200 gift selected')">
+        🎁 ₦200
+      </button>
+
+      <button onclick="demo('₦500 gift selected')">
+        🎁 ₦500
+      </button>
+
+      <button onclick="demo('₦1,000 gift selected')">
+        🎁 ₦1,000
+      </button>
+
+      <button onclick="demo('₦1,500 gift selected')">
+        🎁 ₦1,500
+      </button>
+
+      <button onclick="demo('₦2,000 gift selected')">
+        🎁 ₦2,000
+      </button>
+
+      <button onclick="demo('₦5,000 gift selected')">
+        🎁 ₦5,000
+      </button>
+
+      <button onclick="demo('₦7,000 gift selected')">
+        🎁 ₦7,000
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>Withdrawal</h2>
+
+    <div class="grid">
+
+      <div class="col-6">
+
+        <label>Country</label>
+
+        <select>
+
+          <option>🇳🇬 Nigeria — NGN</option>
+          <option>🇬🇭 Ghana — GHS</option>
+          <option>🇰🇪 Kenya — KES</option>
+          <option>🇿🇦 South Africa — ZAR</option>
+          <option>Other</option>
+
+        </select>
+
+      </div>
+
+      <div class="col-6">
+
+        <label>Amount</label>
+
+        <input
+          type="number"
+          placeholder="1500"
+        >
+
+      </div>
+
+    </div>
+
+    <button
+      class="btn btn-primary"
+      onclick="demo('Withdrawal request interface ready')"
+    >
+      Request Withdrawal
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="screen">
+
+  <h1>Profile</h1>
+
+  <div class="card">
+
+    <div class="user">
+
+      <div class="avatar">
+        M
+      </div>
+
+      <div>
+
+        <h2 style="margin:0">
+          Muhammad
+        </h2>
+
+        <div class="muted">
+          🇳🇬 Nigeria · Creator · Seller
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="actions">
+
+      <button>Followers 0</button>
+      <button>Following 0</button>
+      <button>Likes 0</button>
+      <button>Sales 0</button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>Referral</h2>
+
+    <p class="muted">
+      Share your referral link with other users.
+    </p>
+
+    <input
+      value="https://vozza.example/ref/VOZZA123"
+      readonly
+    >
+
+    <button
+      class="btn btn-primary"
+      style="margin-top:10px"
+      onclick="demo('Referral link ready to share')"
+    >
+      Share Referral
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section id="settings" class="screen">
+
+  <h1>Settings</h1>
+
+  <div class="grid">
+
+    <div class="col-6 card">
+
+      <h2>Account</h2>
+
+      <button
+        class="btn"
+        onclick="demo('Edit profile')"
+      >
+        Edit Profile
+      </button>
+
+      <button
+        class="btn"
+        onclick="demo('Change email')"
+      >
+        Change Email
+      </button>
+
+      <button
+        class="btn btn-danger"
+        onclick="demo('Account deletion interface')"
+      >
+        Delete Account
+      </button>
+
+    </div>
+
+
+    <div class="col-6 card">
+
+      <h2>Privacy</h2>
+
+      <label>
+        <input type="checkbox">
+        Private account
+      </label>
+
+      <label>
+        <input type="checkbox" checked>
+        Allow messages
+      </label>
+
+      <label>
+        <input type="checkbox" checked>
+        Allow product recommendations
+      </label>
+
+    </div>
+
+
+    <div class="col-6 card">
+
+      <h2>Content</h2>
+
+      <label>
+        <input type="checkbox" checked>
+        Hide sensitive content
+      </label>
+
+      <label>
+        <input type="checkbox">
+        Reduce recommendations
+      </label>
+
+    </div>
+
+
+    <div class="col-6 card">
+
+      <h2>Security</h2>
+
+      <button
+        class="btn"
+        onclick="demo('Two-factor authentication interface')"
+      >
+        🔐 Set up 2FA
+      </button>
+
+      <button
+        class="btn"
+        onclick="demo('Active sessions interface')"
+      >
+        📱 Active Sessions
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section id="admin" class="screen">
+
+  <h1>Admin & Moderation</h1>
+
+  <div class="grid">
+
+    <div class="col-4 stat">
+      Reports
+      <div class="stat-number">0</div>
+    </div>
+
+    <div class="col-4 stat">
+      Seller Applications
+      <div class="stat-number">0</div>
+    </div>
+
+    <div class="col-4 stat">
+      Withdrawal Reviews
+      <div class="stat-number">0</div>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>Moderation</h2>
+
+    <ul>
+
+      <li>Report posts and users.</li>
+
+      <li>Review sellers.</li>
+
+      <li>Review suspicious activity.</li>
+
+      <li>Review creator rewards.</li>
+
+      <li>Review withdrawal requests.</li>
+
+      <li>Manage banned accounts.</li>
+
+      <li>Manage product reports.</li>
+
+    </ul>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<footer style="
+padding:30px;
+text-align:center;
+color:#70758a;
+">
+
+VOZZA · Social Commerce · Frontend Developer Handoff
+
+</footer>
+
+</div>
+
+
+<!-- LOGIN MODAL -->
+
+<div id="loginModal" class="modal">
+
+  <div class="modal-card">
+
+    <div class="row between">
+
+      <h2>VOZZA Sign In</h2>
+
+      <button
+        class="btn"
+        onclick="closeModal('loginModal')"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <p class="muted">
+      Authentication is intentionally not connected to a backend
+      in this version.
+    </p>
+
+    <label>Email</label>
+
+    <input
+      type="email"
+      placeholder="you@example.com"
+    >
+
+    <label>Password</label>
+
+    <input
+      type="password"
+      placeholder="Password"
+    >
+
+    <button
+      class="btn btn-primary"
+      style="margin-top:15px"
+      onclick="
+        demo('Sign-in interface ready for backend connection');
+        closeModal('loginModal');
+      "
+    >
+      Continue
+    </button>
+
+  </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/*
+==================================================
+VOZZA FRONTEND
+==================================================
+
+IMPORTANT:
+
+This file intentionally does NOT use:
+
+- localStorage
+- sessionStorage
+- Cloudflare D1
+- Cloudflare R2
+- Paystack
+- Firebase
+- Supabase
+
+Data exists only in JavaScript memory while
+the page is open.
+
+==================================================
+*/
+
+
+const posts = [
+
+  {
+    name:"Amina",
+    flag:"🇳🇬",
+    text:"Remember to compare the product price and delivery fee before ordering.",
+    likes:12
+  },
+
+  {
+    name:"VOZZA Team",
+    flag:"🌍",
+    text:"What would make you feel safer shopping online?",
+    likes:8
+  }
+
+];
+
+
+const products = [
+
+  {
+    name:"Smartphone",
+    price:"₦150,000",
+    seller:"Amina Store",
+    country:"🇳🇬",
+    icon:"📱"
+  },
+
+  {
+    name:"Sneakers",
+    price:"₦35,000",
+    seller:"Gimba Fashion",
+    country:"🇳🇬",
+    icon:"👟"
+  },
+
+  {
+    name:"Headphones",
+    price:"₦48,000",
+    seller:"Accra Tech",
+    country:"🇬🇭",
+    icon:"🎧"
+  },
+
+  {
+    name:"Laptop",
+    price:"₦950,000",
+    seller:"Africa Computer",
+    country:"🇳🇬",
+    icon:"💻"
+  },
+
+  {
+    name:"Watch",
+    price:"₦75,000",
+    seller:"VOZZA Seller",
+    country:"🇳🇬",
+    icon:"⌚"
+  },
+
+  {
+    name:"Camera",
+    price:"₦420,000",
+    seller:"Creator Store",
+    country:"🇳🇬",
+    icon:"📷"
+  }
+
+];
+
+
+const reels = [
+
+  {
+    title:"Comedy Reel",
+    creator:"Aisha",
+    views:"12.4K",
+    flag:"🇳🇬"
+  },
+
+  {
+    title:"Product Review",
+    creator:"Tech Africa",
+    views:"8.2K",
+    flag:"🇳🇬"
+  },
+
+  {
+    title:"News Reel",
+    creator:"VOZZA News",
+    views:"21.5K",
+    flag:"🌍"
+  },
+
+  {
+    title:"Creator Tutorial",
+    creator:"Mohammed",
+    views:"5.9K",
+    flag:"🇳🇬"
+  },
+
+  {
+    title:"Fashion Reel",
+    creator:"Zainab",
+    views:"18.1K",
+    flag:"🇳🇬"
+  },
+
+  {
+    title:"Business Reel",
+    creator:"Africa Business",
+    views:"9.4K",
+    flag:"🇬🇭"
+  }
+
+];
+
+
+const voiceEffects = [
+
+  "Natural",
+  "Sweet",
+  "Warm",
+  "Soft",
+  "Clear",
+  "Studio",
+  "Deep",
+  "Bright",
+  "Radio",
+  "Bass"
+
+];
+
+
+let likedPosts = new Set();
+
+
+function showScreen(id, button){
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen => {
+      screen.classList.remove("active");
+    });
+
+  const target = document.getElementById(id);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+function demo(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.style.display = "block";
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(() => {
+
+      toast.style.display = "none";
+
+    },2500);
+
+}
+
+
+function openModal(id){
+
+  document
+    .getElementById(id)
+    .classList.add("show");
+
+}
+
+
+function closeModal(id){
+
+  document
+    .getElementById(id)
+    .classList.remove("show");
+
+}
+
+
+function publishPost(){
+
+  const input =
+    document.getElementById("postText");
+
+  const text =
+    input.value.trim();
+
+  if(!text){
+
+    demo("Write something first.");
+
+    return;
+  }
+
+  posts.unshift({
+
+    name:"You",
+
+    flag:"🇳🇬",
+
+    text:text,
+
+    likes:0
+
+  });
+
+  input.value="";
+
+  renderFeed();
+
+  demo("Post added to the demo feed.");
+
+}
+
+
+function likePost(index){
+
+  if(likedPosts.has(index)){
+
+    demo("You already liked this post.");
+
+    return;
+
+  }
+
+  likedPosts.add(index);
+
+  posts[index].likes++;
+
+  renderFeed();
+
+}
+
+
+function renderFeed(){
+
+  const feed =
+    document.getElementById("feed");
+
+  feed.innerHTML="";
+
+  posts.forEach((post,index)=>{
+
+    const element =
+      document.createElement("div");
+
+    element.className="feed-post";
+
+    element.innerHTML=`
+
+      <div class="user">
+
+        <div class="avatar">
+          ${post.name.charAt(0)}
+        </div>
+
+        <div>
+
+          <strong>${escapeHTML(post.name)}</strong>
+
+          <span>${post.flag}</span>
+
+          <div class="small muted">
+            Just now
+          </div>
+
+        </div>
+
+      </div>
+
+      <p>
+        ${escapeHTML(post.text)}
+      </p>
+
+      <div class="actions">
+
+        <button
+          onclick="likePost(${index})"
+        >
+          ❤️ ${post.likes}
+        </button>
+
+        <button
+          onclick="demo('Comment interface ready')"
+        >
+          💬 Comment
+        </button>
+
+        <button
+          onclick="demo('Share interface ready')"
+        >
+          ↗ Share
+        </button>
+
+        <button
+          onclick="demo('Gift interface ready')"
+        >
+          🎁 Gift
+        </button>
+
+      </div>
+
+    `;
+
+    feed.appendChild(element);
+
+  });
+
+}
+
+
+function renderReels(){
+
+  const grid =
+    document.getElementById("reelsGrid");
+
+  grid.innerHTML="";
+
+  reels.forEach(reel=>{
+
+    grid.innerHTML += `
+
+      <div class="col-4">
+
+        <div class="reel">
+
+          <div class="reel-video">
+
+            ▶️
+
+          </div>
+
+          <div class="reel-body">
+
+            <h3>
+              ${reel.title}
+            </h3>
+
+            <div class="muted small">
+
+              ${reel.flag}
+              ${reel.creator}
+              · ${reel.views} views
+
+            </div>
+
+            <div class="actions">
+
+              <button
+                onclick="demo('Like registered in demo')"
+              >
+                ❤️ Like
+              </button>
+
+              <button
+                onclick="demo('Comment interface ready')"
+              >
+                💬 Comment
+              </button>
+
+              <button
+                onclick="demo('Share interface ready')"
+              >
+                ↗ Share
+              </button>
+
+              <button
+                onclick="demo('Gift interface ready')"
+              >
+                🎁 Gift
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+function renderVoice(){
+
+  const container =
+    document.getElementById("voiceFeed");
+
+  const voices=[
+
+    "Motivation Voice",
+    "Comedy Voice",
+    "Product Voice"
+
+  ];
+
+  container.innerHTML="";
+
+  voices.forEach(title=>{
+
+    container.innerHTML += `
+
+      <div class="card">
+
+        <div class="user">
+
+          <div class="avatar">
+            🎙️
+          </div>
+
+          <div>
+
+            <strong>
+              ${title}
+            </strong>
+
+            <div class="small muted">
+              🇳🇬 Creator
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          style="
+          margin-top:15px;
+          background:#eeeaff;
+          padding:20px;
+          border-radius:14px;
+          "
+        >
+
+          ▶️ Audio player interface
+
+        </div>
+
+        <div class="actions">
+
+          <button>
+            ❤️ Like
+          </button>
+
+          <button>
+            💬 Comment
+          </button>
+
+          <button>
+            ↗ Share
+          </button>
+
+          <button>
+            🎁 Gift
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+function renderProducts(){
+
+  const grid =
+    document.getElementById("products");
+
+  grid.innerHTML="";
+
+  products.forEach(product=>{
+
+    grid.innerHTML += `
+
+      <div class="col-4">
+
+        <div class="product">
+
+          <div class="product-image">
+
+            ${product.icon}
+
+          </div>
+
+          <div class="product-body">
+
+            <div class="small muted">
+
+              ${product.country}
+              ${product.seller}
+
+            </div>
+
+            <h3>
+              ${product.name}
+            </h3>
+
+            <div class="price">
+              ${product.price}
+            </div>
+
+            <p class="small muted">
+
+              Compare product price
+              and delivery before ordering.
+
+            </p>
+
+            <div class="actions">
+
+              <button
+                class="btn btn-primary"
+                onclick="demo('Buy interface ready')"
+              >
+                Buy
+              </button>
+
+              <button
+                onclick="demo('Product shared')"
+              >
+                ↗ Share
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+function renderEffects(){
+
+  const box =
+    document.getElementById("voiceEffects");
+
+  const select =
+    document.getElementById("effectSelect");
+
+  box.innerHTML="";
+
+  select.innerHTML="";
+
+  voiceEffects.forEach(effect=>{
+
+    box.innerHTML += `
+
+      <div class="col-3">
+
+        <div class="stat">
+
+          <strong>
+            🎙️ ${effect}
+          </strong>
+
+          <div class="small muted">
+            Voice effect
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+    select.innerHTML += `
+
+      <option>
+        ${effect}
+      </option>
+
+    `;
+
+  });
+
+}
+
+
+function searchVOZZA(){
+
+  const query =
+    document
+      .getElementById("searchInput")
+      .value
+      .trim();
+
+  if(!query){
+
+    demo("Type something to search.");
+
+    return;
+
+  }
+
+  demo(
+    "Search interface ready: " + query
+  );
+
+}
+
+
+function escapeHTML(value){
+
+  return value
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+renderFeed();
+renderReels();
+renderVoice();
+renderProducts();
+renderEffects();
+
+</script>
+
+</body>
+</html>
